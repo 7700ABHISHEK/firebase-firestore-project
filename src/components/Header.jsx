@@ -48,7 +48,7 @@ const Header = ({ isLogin, setIsLogin }) => {
                         </button>
                     ) : (
                         <button
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/login")}
                             className="border text-white px-4 py-2 rounded-lg text-sm transition"
                         >
                             Login
@@ -85,7 +85,7 @@ const Header = ({ isLogin, setIsLogin }) => {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => handleNavClick("/")}
+                                    onClick={() => handleNavClick("/login")}
                                     className="w-full border bg-gradient-to-t from-black via-[#0f172a] to-[#020617] text-white px-4 py-2 rounded-lg text-sm transition"
                                 >
                                     Login

@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { app } from '../config/firebase';
 
@@ -41,8 +41,7 @@ const LoginForm = ({ setIsLogin }) => {
         if (Object.keys(validationErrors).length > 0) return;
 
         try {
-            await createUserWithEmailAndPassword(auth, input.email, input.password);
-            navigate("/dashboard");
+            await signInWithEmailAndPassword(auth, input.email, input.password)
         } catch (error) {
             toast.error(error.code, { autoClose: 2000 });
         }
@@ -52,8 +51,8 @@ const LoginForm = ({ setIsLogin }) => {
         <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-gray-900 via-black to-gray-900">
             <div className="relative z-10 w-full max-w-md p-8 sm:p-10 bg-white/10 border border-blue-500/40 backdrop-blur-xl rounded-2xl shadow-2xl hover:scale-[1.02] transition-transform duration-500">
                 <div className="text-center mb-8">
-                    <h1 className="mt-2 text-4xl font-extrabold text-blue-400 drop-shadow-lg">Sign Up</h1>
-                    <p className="text-gray-300 mt-2">Create your new account</p>
+                    <h1 className="mt-2 text-4xl font-extrabold text-blue-400 drop-shadow-lg">Welcome Back</h1>
+                    <p className="text-gray-300 mt-2">Login to your account</p>
                 </div>
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
@@ -96,16 +95,23 @@ const LoginForm = ({ setIsLogin }) => {
                         type="submit"
                         className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-lg shadow-lg hover:from-blue-400 hover:to-indigo-400 hover:shadow-blue-500/40 transition-all duration-300"
                     >
-                        Sign Up
+                        Login with details
                     </button>
+
+                    <h1 className='text-white text-center !my-2 font-bold'>OR</h1>
 
                     <button
                         type="button"
                         onClick={handleGoogle}
-                        className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:from-pink-400 hover:to-purple-400 hover:shadow-pink-500/40 transition-all duration-300"
+                        className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-lg shadow-lg hover:from-pink-400 hover:to-purple-400 hover:shadow-pink-500/40 transition-all duration-300 !mt-1"
                     >
                         Continue with Google
                     </button>
+                    <Link to={"/"}>
+                        <h1 className='text-white mt-3'>
+                            Don't have an account <span className='text-blue-500 underline font-semibold'>Sign up</span> 
+                        </h1>
+                    </Link>
                 </form>
             </div>
         </div>
