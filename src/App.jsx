@@ -8,17 +8,14 @@ import SignUp from "./pages/SignUp"
 import LoginForm from "./components/LoginForm"
 
 const App = () => {
-
-    const [isLogin, setIslogin] = useState(false)
-
     return (
         <BrowserRouter>
             <ToastContainer />
-            <Header isLogin={isLogin} setIsLogin={setIslogin} />
+            <Header />
             <Routes>
-                <Route path="/" element={<SignUp />}/>
+                <Route path="/" element={<SignUp />} />
                 <Route path="/login" element={<LoginForm />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
             </Routes>
         </BrowserRouter>
     )

@@ -20,6 +20,7 @@ const LoginForm = ({ setIsLogin }) => {
         try {
             let res = await signInWithPopup(auth, googleProvider);
             navigate("/dashboard")
+            toast.success("Login Successfully...", {autoClose: 1000})
         } catch (error) {
             toast.error(error.code);
         }

@@ -1,26 +1,38 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { app } from "../config/firebase"
+import { useNavigate } from "react-router-dom"
 
 const auth = getAuth(app)
 
-const ProtectedRoute = (Component) => {
+const ProtectedRoute = ({ children }) => {
+  const [user, setUser] = useState(undefined)
+  const navigate = useNavigate();
 
-  let k = onAuthStateChanged(auth, (user) => {
-        console.log(user);
-        if (user) {
-            const uid = user.uid;
-        } else {
-            // User is signed out
-            // ...
-        }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (data) => {
+      if (data) {
+        setUser(data);
+      } else {
+        setUser(null);
+        navigate("/login");
+      }
     });
 
-    console.log(k);
+    return () => unsubscribe(); // cleanup Function
+  }, [navigate]);
 
-    return (
-        <div>ProtectedRoute</div>
-    )
+
+  if (user === undefined) {
+    return <div className="bg-black h-screen">
+      <div className="flex justify-center items-center h-[100%]">
+        <img src="/loader-git.gif" alt="loader" />
+      </div>
+    </div>;
+  }
+
+  return children
+
 }
 
 export default ProtectedRoute
