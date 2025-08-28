@@ -8,12 +8,13 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider(app);
 
 const SignUp = ({ setIsLogin }) => {
-    const [input, setInput] = useState({ email: '', password: '' });
+    const [input, setInput] = useState({ name: '', email: '', password: '' });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         setInput({ ...input, [e.target.id]: e.target.value });
+        setErrors({...errors, [e.target.id]: ""})
     };
 
     const handleGoogle = async () => {
@@ -30,6 +31,9 @@ const SignUp = ({ setIsLogin }) => {
 
         const validationErrors = {};
 
+        if (input.name.trim() === '') {
+            validationErrors.name = 'Please enter a valid Name';
+        }
         if (input.password.trim() === '' || input.password.length < 8) {
             validationErrors.password = 'Please enter a valid password (min. 8 characters)';
         }
@@ -58,6 +62,23 @@ const SignUp = ({ setIsLogin }) => {
                 </div>
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-1">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={input.name}
+                            className="w-full px-4 py-3 bg-black/30 text-white border border-blue-400/50 rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="John Doe"
+                            onChange={handleChange}
+                        />
+                        {errors.name && (
+                            <p className="text-red-400 mt-1 text-sm font-medium">{errors.name}</p>
+                        )}
+                    </div>
+
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-1">
                             Email Address

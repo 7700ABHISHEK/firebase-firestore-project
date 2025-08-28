@@ -114,7 +114,7 @@ const Dashboard = () => {
               id="course"
               value={form.course}
               onChange={handleChange}
-              className="bg-black/30 border border-blue-400/50 rounded-lg text-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none block w-full p-2"
+              className="bg-black border border-blue-400/50 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none block w-full p-2"
             >
               <option value="">Choose a Framework</option>
               <option value="React.js">React.js</option>
@@ -186,7 +186,8 @@ const Dashboard = () => {
         </div>
       ) : (
         <div className="my-6">
-          <img src="/no-students-found.webp" alt="no-students" className="h-96" />
+          <img src="/no-students-found.avif" alt="no-students" className="h-96" />
+          <h1 className="text-3xl font-semibold mt-5 text-center text-gray-300">No Student Added</h1>
         </div>
       )}
     </div>

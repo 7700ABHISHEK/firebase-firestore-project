@@ -14,6 +14,7 @@ const LoginForm = ({ setIsLogin }) => {
 
     const handleChange = (e) => {
         setInput({ ...input, [e.target.id]: e.target.value });
+        setErrors({...errors, [e.target.id]: ""});
     };
 
     const handleGoogle = async () => {
@@ -43,6 +44,8 @@ const LoginForm = ({ setIsLogin }) => {
 
         try {
             await signInWithEmailAndPassword(auth, input.email, input.password)
+            navigate("/dashboard")
+            toast.success("User Logged in Successfully...");
         } catch (error) {
             toast.error(error.code, { autoClose: 2000 });
         }
